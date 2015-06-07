@@ -22,5 +22,8 @@
     "url": "https://github.com/MakeBluetooth/rolling-spider/issues"
   },
   "homepage": "https://github.com/MakeBluetooth/rolling-spider",
-  "private": true
+  "private": true,
+  "dependencies": {
+    "rolling-spider": "^1.2.1"
+  }
 }
