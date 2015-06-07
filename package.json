@@ -1,0 +1,26 @@
+{
+  "name": "make-bluetooth-rolling-spider",
+  "version": "0.0.0",
+  "description": "Node.js controlled Rolling Spider app",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/MakeBluetooth/rolling-spider.git"
+  },
+  "keywords": [
+    "Make",
+    "Bluetooth",
+    "Rolling",
+    "Spider"
+  ],
+  "author": "Sandeep Mistry <sandeep.mistry@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/MakeBluetooth/rolling-spider/issues"
+  },
+  "homepage": "https://github.com/MakeBluetooth/rolling-spider",
+  "private": true
+}
