@@ -24,6 +24,7 @@
   "homepage": "https://github.com/MakeBluetooth/rolling-spider",
   "private": true,
   "dependencies": {
+    "async": "^1.2.1",
     "rolling-spider": "^1.2.1"
   }
 }

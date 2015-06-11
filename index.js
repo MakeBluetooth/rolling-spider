@@ -1,33 +1,52 @@
+var async = require('async');
+
 var RollingSpider = require('rolling-spider');
 
 var rs = new RollingSpider();
 
-console.log('attempt to connect to Rolling Spider ...');
-rs.connect(function(error) {
-  if (error) {
-    throw error;
-  }
+async.series([
+  connect,
+  setup,
+  flatTrimAndStartPing,
+  takeOff,
+  inAirDelay,
+  land,
+  exit
+]);
 
-  console.log('Rolling Spider connected successfully, setting up ...');
-  rs.setup(function() {
-    console.log('Rolling Spider setup successfully, flat trim + starting ping ...');
-    rs.flatTrim();
-    rs.startPing();
-    rs.flatTrim();
+function connect(callback) {
+  console.log('connecting ...');
+  rs.connect(callback);
+}
 
-    setTimeout(function() {
-      console.log('Rolling Spider take off!');
-      rs.takeOff(function() {
-        console.log('Rolling Spider in air ...');
+function setup(callback) {
+  console.log('setting up ...');
+  rs.setup(callback);
+}
 
-        setTimeout(function() {
-          console.log('Rolling Spider land!');
-          rs.land(function() {
-            console.log('Rolling Spider landed ... bye');
-            process.exit(0);
-          });
-        }, 2000);
-      });
-    }, 1000);
-  });
-});
+function flatTrimAndStartPing(callback) {
+  console.log('flat trimming and starting ping ...');
+  rs.flatTrim();
+  rs.startPing();
+  rs.flatTrim();
+
+  setTimeout(callback, 1000); // delay while commands are processed
+}
+
+function takeOff(callback) {
+  console.log('taking off ...');
+  rs.takeOff(callback);
+}
+
+function inAirDelay(callback) {
+  setTimeout(callback, 2000);
+}
+
+function land(callback) {
+  console.log('landing ...');
+  rs.land(callback);
+}
+
+function exit() {
+  process.exit(0);
+}
