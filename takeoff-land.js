@@ -2,34 +2,49 @@ var RollingSpider = require('rolling-spider');
 
 var rs = new RollingSpider();
 
-console.log('connecting ...');
-rs.connect(function(error) {
+function connect() {
+  console.log('connecting ...');
+  rs.connect(connectCallback);
+}
+
+function connectCallback(error) {
   if (error) {
     console.log('error connecting: ' + error);
     process.exit(-1);
   }
 
   console.log('connected, setting up ...');
-  rs.setup(function() {
-    console.log('set up');
-    rs.flatTrim();
-    rs.startPing();
-    rs.flatTrim();
+  rs.setup(setupCallback);
+}
 
-    setTimeout(takeOff, 1000);
+function setupCallback() {
+  console.log('set up, flat trimming and starting ping ...');
 
-    setTimeout(land, 10000);
-  });
-});
+  rs.flatTrim();
+  rs.startPing();
+  rs.flatTrim();
+
+  setTimeout(takeOff, 1000); // delay take off, so commands can be processed
+}
 
 function takeOff() {
   console.log('taking off ...');
-  rs.takeOff();
+  rs.takeOff(takeOffCallback);
+}
+
+function takeOffCallback() {
+  console.log('taken off');
+  setTimeout(land, 2000);
 }
 
 function land() {
   console.log('landing ...');
-  rs.land(function() {
-    process.exit(0);
-  });
+  rs.land(landCallback);
 }
+
+function landCallback() {
+  console.log('landed')
+  process.exit(0);
+}
+
+connect();
