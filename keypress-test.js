@@ -11,7 +11,11 @@ function clearActive() {
 }
 
 process.stdin.on('keypress', function (ch, key) {
-  if (key.ctrl && key.name == 'c') {
+  if (!key) {
+    return;
+  }
+
+  if (key.ctrl && key.name === 'c') {
     process.exit();
   }
 
